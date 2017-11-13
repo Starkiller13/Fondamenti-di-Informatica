@@ -17,9 +17,9 @@ public class Cerchio {
 
     public boolean isCoincident(Cerchio c) {
         if (this.pos_x == c.pos_x && this.pos_y == c.pos_y && Math.abs(this.radius - c.pos_x) < ERRORE)
-            return 1;
+            return true;
         else
-            return 0;
+            return false;
     }
 
     /*
@@ -27,7 +27,7 @@ public class Cerchio {
        il cerchio c e' interno a questo cerchio
     */
     public boolean isEncircled(Cerchio c) {
-        if (this.pos_x+this.radius<c.pos_x+c.radius&&this.pos_y+this.radius<c.pos_y+c.radius)
+        if (Math.pow(this.pos_x - c.pos_x, 2) + Math.pow(this.pos_y - c.pos_y, 2) < Math.pow(this.radius - c.radius, 2))
             return true;
         else
             return false;
@@ -38,10 +38,10 @@ public class Cerchio {
       sono contenuti uno nell'altro e non hanno alcun punto in comune
     */
     public boolean isExternal(Cerchio c) {
-        if ()
-        return true;
-    else
-        return false;
+        if (Math.pow(this.pos_x - c.pos_x, 2) + Math.pow(this.pos_y - c.pos_y, 2) > Math.pow(this.radius + c.radius, 2))
+            return true;
+        else
+            return false;
     }
 
     /*
@@ -49,7 +49,11 @@ public class Cerchio {
       ovvero se hanno almeno un punto in comune.
     */
     public boolean isSecant(Cerchio c) {
-        //... completare
+        if (Math.pow(this.pos_x - c.pos_x, 2) + Math.pow(this.pos_y - c.pos_y, 2) < Math.pow(this.radius + c.radius, 2)
+                && !c.isEncircled(this) && !this.isEncircled(c))
+            return true;
+        else
+            return false;
     }
 
     /*
@@ -57,7 +61,11 @@ public class Cerchio {
       ovvero se hanno un solo punto in comune
     */
     public boolean isTangential(Cerchio c) {
-        //... completare
+        if (Math.abs(Math.pow(this.pos_x - c.pos_x, 2) + Math.pow(this.pos_y - c.pos_y, 2)
+                - Math.pow(this.radius + c.radius, 2)) < ERRORE)
+            return true;
+        else
+            return false;
     }
 
     private double pos_x;
